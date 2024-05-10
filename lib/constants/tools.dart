@@ -3,17 +3,27 @@ import 'package:academia/exports/barrel.dart';
 
 final List<Map<String, dynamic>> allTools = [
   {
+    "id": 9,
+    "name": "Bus Booking",
+    "action": "Book a seat",
+    "image": "assets/images/bus.png",
+    "ontap": () {
+      Get.to(const BusDashboard());
+    },
+    "description":
+        "Need to use school transport? Worry not, now you can book your seat from anywhere",
+  },
+  {
     "id": 8,
     "name": "Exam Timetable",
     "action": "Show exam timetable",
     "image": "assets/images/exam_timetable.png",
     "ontap": () {
-      Get.to(const ExamTimeTablePage());
+      Get.to(() => const ExamTimeTablePage());
     },
     "description":
         "Exams around the corner? Don't panic we've got you covered with the timetable",
   },
-
   {
     "id": 1,
     "name": "GPA Calculator",
