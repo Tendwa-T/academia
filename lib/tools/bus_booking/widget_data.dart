@@ -47,3 +47,38 @@ final List<Map<String, dynamic>> cards = [
     "color": (Colors.yellow),
   },
 ];
+
+List<Map<String, dynamic>> tComMembers = [
+  {
+    "id": 0,
+    "name": "Kiema Nahashon",
+    "phoneNumber": "+254725695626",
+    "ontap": () {
+      launchPhoneDialer("+254725695626");
+    },
+  },
+  {
+    "id": 1,
+    "name": "Lewis Njeri",
+    "phoneNumber": "+254746494504",
+    "ontap": () {
+      launchPhoneDialer("+254746494504");
+    },
+  },
+  {
+    "id": 2,
+    "name": "Cecile Eddie",
+    "phoneNumber": "+254706041344",
+    "ontap": () {
+      launchPhoneDialer("+254706041344");
+    },
+  },
+].obs;
+void launchPhoneDialer(contact) async {
+  var phoneNumber = 'tel:$contact'; // Replace with the actual phone number
+  if (await canLaunchUrl(Uri.parse(phoneNumber))) {
+    await launchUrl(Uri.parse(phoneNumber));
+  } else {
+    throw 'Could not launch $phoneNumber';
+  }
+}
