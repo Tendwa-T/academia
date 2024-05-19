@@ -58,7 +58,7 @@ class BusDashboard extends StatelessWidget {
             ),
             CurrencyWidget(formattedAmount: formattedAmount),
             const SizedBox(
-              height: 52,
+              height: 41,
             ),
             const Text(
               "Here are some things you can do",

@@ -64,3 +64,4 @@ export 'package:academia/tools/bus_booking/widgets/currency.dart';
 export 'package:academia/tools/bus_booking/widgets/contacts.dart';
 export 'package:url_launcher/url_launcher.dart';
 export 'package:academia/tools/bus_booking/controllers/controllers.dart';
+export 'package:academia/tools/bus_booking/models/ticket.dart';

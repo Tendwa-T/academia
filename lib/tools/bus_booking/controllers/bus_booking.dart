@@ -1,4 +1,5 @@
 import 'package:academia/exports/barrel.dart';
+import 'package:academia/tools/bus_booking/my_ticket_page.dart';
 import 'package:get/get.dart';
 
 class BusBookingController extends GetxController {
@@ -42,7 +43,7 @@ class BusBookingController extends GetxController {
       "action": "View my Ticket",
       "icon": Ionicons.ticket,
       "ontap": () {
-        Get.snackbar("My Ticket", "Opening your ticket details...");
+        Get.to(() => const CurrentTicketPage());
       },
       "description": "Get to see your most current ticket",
       "color": (Colors.yellow),
@@ -65,6 +66,18 @@ class BusBookingController extends GetxController {
       "name": "Cecile Eddie",
       "phoneNumber": "+254706041344",
     },
+  ].obs;
+
+  List<Ticket> currentTicketDetails = [
+    Ticket(
+      destDetails: "Athi River - Nairobi",
+      date: "14 Jun 2024, Monday",
+      busNumberPlate: "KDM 001A",
+      seatNumber: ["A01", "B02"],
+      ticketID: "Tk0891001",
+      departureTime: "0500hrs",
+      totalPayable: "400ksh",
+    ),
   ].obs;
 
   launchPhoneDialer(contact) async {
