@@ -8,7 +8,7 @@ class NotificationsController extends GetxController {
   var hasNotifications = false.obs;
   List notifications = [].obs;
 
-  @override
+  /*  @override
   void onInit() async {
     super.onInit();
     if (Platform.isIOS || Platform.isAndroid) {}
@@ -16,7 +16,7 @@ class NotificationsController extends GetxController {
     notifications = await magnet.fetchNotifications();
     hasNotifications.value = notifications.isNotEmpty;
     debugPrint("Notifications Done!");
-  }
+  } */
 
   // fetches the event calendar
   Future<void> fetchAcademicCalendar() async {

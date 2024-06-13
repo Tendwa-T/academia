@@ -9,12 +9,10 @@ class CardGridWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
-      itemCount: cards.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 2,
-        mainAxisSpacing: 8,
-      ),
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: BusBookingController().cards.length,
+      gridDelegate:
+          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemBuilder: (context, index) {
         final card = BusBookingController().cards[index];
         final cardIcon = (card['icon']);

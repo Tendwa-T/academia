@@ -14,18 +14,20 @@ class CurrencyWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 8.0),
       child: Row(
         children: [
-          Text.rich(TextSpan(
-            text: formattedAmount.substring(3, 11),
-            style: const TextStyle()
-                .copyWith(fontWeight: FontWeight.bold, fontSize: 40),
-            children: [
-              TextSpan(
-                text: " ${formattedAmount.substring(0, 3)}",
-                style: const TextStyle()
-                    .copyWith(fontWeight: FontWeight.normal, fontSize: 20),
-              )
-            ],
-          ))
+          Text.rich(
+            TextSpan(
+              text: formattedAmount.substring(3),
+              style: const TextStyle()
+                  .copyWith(fontWeight: FontWeight.bold, fontSize: 40),
+              children: [
+                TextSpan(
+                  text: " ${formattedAmount.substring(0, 3)}",
+                  style: const TextStyle()
+                      .copyWith(fontWeight: FontWeight.normal, fontSize: 20),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

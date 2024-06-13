@@ -1,4 +1,5 @@
 import 'package:academia/exports/barrel.dart';
+import 'package:intl/intl.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 
@@ -7,12 +8,12 @@ class CurrentTicketPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var ticketDetails = BusBookingController().allTickets[0];
+
     bool isDarkMode =
         MediaQuery.platformBrightnessOf(context) == Brightness.dark
             ? true
             : false;
-
-    var ticketDetails = BusBookingController().currentTicketDetails[0];
 
     return Scaffold(
       appBar: AppBar(
@@ -75,12 +76,18 @@ class CurrentTicketPage extends StatelessWidget {
 
   TicketWidget ticketMethod(
       bool isDarkMode, BuildContext context, Ticket ticketDetails) {
+    final formatCurrency = NumberFormat.simpleCurrency(
+      locale: Platform.localeName,
+      name: 'KSH',
+    );
+    final formattedAmount = formatCurrency.format(ticketDetails.totalPayable);
+
     return TicketWidget(
       color: isDarkMode ? Colors.white : Colors.black12,
       isCornerRounded: true,
       margin: const EdgeInsets.all(8.0),
       width: MediaQuery.sizeOf(context).width * 0.9,
-      height: MediaQuery.sizeOf(context).height * 0.6,
+      height: MediaQuery.sizeOf(context).height * 0.55,
       child: Padding(
         padding:
             const EdgeInsets.only(bottom: 14.0, left: 12, right: 12, top: 12),
@@ -98,7 +105,7 @@ class CurrentTicketPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          ticketDetails.destDetails,
+                          "${ticketDetails.fromDetails} - ${ticketDetails.toDetails}",
                           style: const TextStyle().copyWith(
                             color: Colors.black,
                             fontSize: 28,
@@ -106,7 +113,7 @@ class CurrentTicketPage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          ticketDetails.date,
+                          DateFormat.yMMMMEEEEd().format(ticketDetails.date),
                           style: const TextStyle().copyWith(
                             color: Colors.grey,
                             fontSize: 14,
@@ -125,73 +132,6 @@ class CurrentTicketPage extends StatelessWidget {
               indent: MediaQuery.sizeOf(context).width * 0.02,
               endIndent: MediaQuery.sizeOf(context).width * 0.02,
             ),
-
-            const SizedBox(height: 20),
-
-            // (Row) Bus Number plate and Seat number
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Bus Number Plate",
-                          style: const TextStyle().copyWith(
-                            color: Colors.grey,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          ticketDetails.busNumberPlate,
-                          style: const TextStyle().copyWith(
-                            color: Colors.black,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Seat Number",
-                            style: const TextStyle().copyWith(
-                              color: Colors.grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            ticketDetails.seatNumber.toString(),
-                            style: const TextStyle().copyWith(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 16),
 
             // (Row) Depature time and Ticket ID
             Row(
@@ -217,7 +157,7 @@ class CurrentTicketPage extends StatelessWidget {
                           style: const TextStyle().copyWith(
                             color: Colors.black,
                             fontSize: 24,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.normal,
                           ),
                         ),
                       ],
@@ -241,11 +181,11 @@ class CurrentTicketPage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            ticketDetails.departureTime,
+                            ticketDetails.departureTime.format(context),
                             style: const TextStyle().copyWith(
                               color: Colors.black,
                               fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
                         ],
@@ -270,13 +210,24 @@ class CurrentTicketPage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    ticketDetails.totalPayable,
-                    style: const TextStyle().copyWith(
-                      color: Colors.black,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Text.rich(
+                    TextSpan(
+                        text: formattedAmount.substring(3),
+                        style: const TextStyle().copyWith(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: " ${formattedAmount.substring(0, 3)}",
+                            style: const TextStyle().copyWith(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          )
+                        ]),
                   )
                 ],
               ),

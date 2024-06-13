@@ -1,8 +1,15 @@
 import 'package:academia/exports/barrel.dart';
+import 'package:academia/tools/bus_booking/book_seat_page.dart';
 import 'package:academia/tools/bus_booking/my_ticket_page.dart';
+import 'package:academia/tools/bus_booking/trip_history_page.dart';
 import 'package:get/get.dart';
 
 class BusBookingController extends GetxController {
+  RxBool isModalVisible = false.obs;
+  void toggleModal() {
+    isModalVisible.value = !isModalVisible.value;
+  }
+
   List<Map<String, dynamic>> cards = [
     {
       "id": 0,
@@ -10,7 +17,7 @@ class BusBookingController extends GetxController {
       "action": "Book a seat",
       "icon": Icons.bus_alert_outlined,
       "ontap": () {
-        Get.snackbar("Bus Booking", "Yaay Get ready to book the bus!!");
+        Get.to(() => const BookSeatPage());
       },
       "description": "Book a seat on the school bus from wherever you are",
       "color": (Colors.red),
@@ -32,7 +39,7 @@ class BusBookingController extends GetxController {
       "action": "View Trip History",
       "icon": Icons.history_outlined,
       "ontap": () {
-        Get.snackbar("Trip history", "Here are you past trips");
+        Get.to(() => const TripHistoryPage());
       },
       "description": "Get to see the previous trips you have booked with us",
       "color": (Colors.purple),
@@ -68,15 +75,24 @@ class BusBookingController extends GetxController {
     },
   ].obs;
 
-  List<Ticket> currentTicketDetails = [
+  List<Ticket> allTickets = [
     Ticket(
-      destDetails: "Athi River - Nairobi",
-      date: "14 Jun 2024, Monday",
-      busNumberPlate: "KDM 001A",
-      seatNumber: ["A01", "B02"],
+      admissionNumber: userController.user.value!.admno,
+      fromDetails: "Athi River",
+      toDetails: "Nairobi",
+      date: DateTime.parse('2024-06-14'),
       ticketID: "Tk0891001",
-      departureTime: "0500hrs",
-      totalPayable: "400ksh",
+      departureTime: const TimeOfDay(hour: 5, minute: 00),
+      totalPayable: 200,
+    ),
+    Ticket(
+      admissionNumber: userController.user.value!.admno,
+      fromDetails: "Nairobi",
+      toDetails: "Athi Rivver",
+      date: DateTime.parse('2024-06-14'),
+      ticketID: "Tk0891001",
+      departureTime: const TimeOfDay(hour: 5, minute: 00),
+      totalPayable: 400,
     ),
   ].obs;
 
