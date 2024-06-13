@@ -8,7 +8,7 @@ class NotificationsController extends GetxController {
   var hasNotifications = false.obs;
   List notifications = [].obs;
 
-  @override
+  /*  @override
   void onInit() async {
     super.onInit();
     if (Platform.isIOS || Platform.isAndroid) {}
@@ -16,7 +16,7 @@ class NotificationsController extends GetxController {
     // notifications = await magnet.fetchNotifications();
     hasNotifications.value = notifications.isNotEmpty;
     debugPrint("Notifications Done!");
-  }
+  } */
 
   int _generateRandomIntId({int min = 100000, int max = 999999}) {
     final random = Random();
