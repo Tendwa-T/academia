@@ -24,14 +24,13 @@ final List<Map<String, dynamic>> allTools = [
     "description":
         "Exams around the corner? Don't panic we've got you covered with the timetable",
   },
+
   {
     "id": 1,
     "name": "GPA Calculator",
     "action": "Calculate GPA",
     "image": "assets/images/calculator.png",
-    "ontap": () {
-      Get.to(GpaCalculator());
-    },
+    "ontap": () {},
     "description": "Wanna calculate your GPA? try it here"
   },
   {
@@ -58,26 +57,26 @@ final List<Map<String, dynamic>> allTools = [
     "action": "Get my fee statement",
     "image": "assets/images/fees.png",
     "ontap": () async {
-      var controller = Get.find<SettingsController>();
-      if (!controller.showFees.value) {
+      // var controller = Get.find<SettingsController>();
+      // if (!(controller.settings.value!.showFeeStatistics ?? false)) {
+      //   showCustomSnackbar(
+      //     "Tool locked",
+      //     "Fees functionality is locked in the settings page, please unlock it to view your fees statement",
+      //     icon: Icons.lock,
+      //   );
+      // } else {
+      try {
+        var statements = await magnet.fetchFeeStatement();
+        Get.to(FeesPage(allStatements: statements));
+      } catch (e) {
         showCustomSnackbar(
-          "Tool locked",
-          "Fees functionality is locked in the settings page, please unlock it to view your fees statement",
-          icon: Icons.lock,
+          "Error",
+          "Please check your internet connection and try again!",
+          icon: Icons.network_check,
         );
-      } else {
-        try {
-          var statements = await magnet.fetchFeeStatement();
-          Get.to(FeesPage(allStatements: statements));
-        } catch (e) {
-          showCustomSnackbar(
-            "Error",
-            "Please check your internet connection and try again!",
-            icon: Icons.network_check,
-          );
-        }
       }
     },
+    // },
     "description": "Not sure about finances? We are here for you"
   },
   {
@@ -109,7 +108,7 @@ final List<Map<String, dynamic>> allTools = [
     "image": "assets/images/view.png",
     "ontap": () async {
       var controller = Get.find<SettingsController>();
-      if (controller.showAudit.value) {
+      if ((controller.settings.value!.enableAudit ?? false)) {
         showCustomSnackbar(
           "Tool locked",
           "Student Audit functionality is locked in the settings page, please unlock it to view your student audit",
@@ -120,7 +119,7 @@ final List<Map<String, dynamic>> allTools = [
         Get.to(PdfViewer(
           title: "Your audit",
           url:
-              "https://student.daystar.ac.ke/Downloads/STDAUDIT-${userController.user.value!.admno}.pdf",
+              "https://student.daystar.ac.ke/Downloads/STDAUDIT-${userController.user.value!.regno}.pdf",
         ));
       }
     },
@@ -133,7 +132,7 @@ final List<Map<String, dynamic>> allTools = [
     "image": "assets/images/graduating.png",
     "ontap": () async {
       var controller = Get.find<SettingsController>();
-      if (controller.showTranscript.value) {
+      if (controller.settings.value!.enableTranscript ?? false) {
         showCustomSnackbar(
           "Tool locked",
           "Transcript functionality is locked in the settings page, please unlock it to view your transcript",
@@ -144,7 +143,7 @@ final List<Map<String, dynamic>> allTools = [
         Get.to(PdfViewer(
           title: "Your Transcript",
           url:
-              "https://student.daystar.ac.ke/Downloads/PROVISIONAL%20RESULTS-${userController.user.value!.admno}.pdf",
+              "https://student.daystar.ac.ke/Downloads/PROVISIONAL%20RESULTS-${userController.user.value!.regno}.pdf",
         ));
       }
     },
@@ -155,9 +154,7 @@ final List<Map<String, dynamic>> allTools = [
     "name": "Class Attendance",
     "action": "View class Attendance",
     "image": "assets/images/girl_sitted.png",
-    "ontap": () {
-      Get.to(const AttendancePage());
-    },
+    "ontap": () {},
     "description":
         "Curious to know how many classes you have missed this semester, this might be the tool",
   },
@@ -167,7 +164,7 @@ final List<Map<String, dynamic>> allTools = [
     "action": "Manage your tasks",
     "image": "assets/images/tasks_manager.png",
     "ontap": () {
-      Get.to(TaskManagerPage());
+      Get.to(const TodoPage());
     },
     "description":
         "Having trouble keeping track of your Assignments? We've got you covered",

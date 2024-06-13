@@ -39,9 +39,6 @@ dependencies:
   http: ^1.0.0
   html: ^0.15.3
   intl: ^0.18.1
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
-  hive_generator: ^2.0.0
   build_runner: ^2.3.3
   get: ^4.6.5
   flutter_launcher_icons: ^0.13.1
@@ -52,7 +49,6 @@ dependencies:
     git:
       url: https://github.com/IamMuuo/magnet
       ref: master
-  liquid_pull_to_refresh: ^3.0.1
   cached_network_image: ^3.2.3
   percent_indicator: ^4.2.3
   timeline_tile: ^2.0.0
@@ -68,9 +64,15 @@ dependencies:
   flutter_timer_countdown: ^1.0.7
   awesome_notifications_core: ^0.9.3
   awesome_notifications: ^0.8.2
+  sqflite: ^2.3.3
+  path: ^1.9.0
+  flex_color_picker: ^3.4.1
+  sqflite_common_ffi: ^2.3.3
+  connectivity_plus: ^6.0.3
   url_launcher: ^6.2.6
   ticket_widget: ^1.0.2
   pretty_qr_code: ^3.3.0
+
   
 
 dev_dependencies:
@@ -104,6 +106,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/logos/
     - shorebird.yaml
   #   - images/a_dot_ham.jpeg
 

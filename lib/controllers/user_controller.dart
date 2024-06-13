@@ -1,9 +1,10 @@
-import 'package:academia/exports/barrel.dart';
-import 'package:get/get.dart';
-
 ///  # UserController
 ///  Author: Erick
 ///  File: Defines a controller that manages user info state across the application
+
+import 'package:academia/exports/barrel.dart';
+import 'package:get/get.dart';
+import 'package:academia/models/models.dart';
 
 class UserController extends GetxController {
   Rx<User?> user = Rxn<User>();
@@ -12,14 +13,28 @@ class UserController extends GetxController {
   @override
 
   /// Load the user from disk and initialize the controller
-  void onInit() {
-    // load the user from local storage
-    if (appDB.containsKey("user")) {
-      user.value = appDB.get("user");
-      isLoggedIn.value = true;
-      magnet = Magnet(user.value!.admno!, user.value!.password!);
-    }
+  Future<void> onInit() async {
     super.onInit();
+    final loadedUser = await loadUserFromDisk();
+
+    if (loadedUser != null) {
+      user.value = loadedUser;
+      isLoggedIn.value = true;
+    }
+  }
+
+  Future<User?> loadUserFromDisk() async {
+    // load the user from local storage
+    final storedUsers = await UserModelHelper().queryAll();
+
+    if (storedUsers.isNotEmpty) {
+      user.value = User.fromJson(storedUsers[0]);
+
+      // initialize magnet
+      magnet = Magnet(user.value!.regno!, user.value!.password!);
+      return user.value;
+    }
+    return null;
   }
 
   /// Perform a request to login a user
@@ -37,13 +52,23 @@ class UserController extends GetxController {
   /// Retrieves user details from magnet and stores it on disk
   Future<void> getUserDetails(String username, String password) async {
     try {
-      appDB = await Hive.openBox(dbName);
-      var data = await magnet.fetchUserData();
+      final rawdata = await magnet.fetchUserData();
+
+      final data = <String, dynamic>{};
+
+      rawdata.forEach((key, value) {
+        if (key is String) {
+          data[key] = rawdata[key];
+        }
+      });
+
       user.value = User.fromJson(data);
       user.value!.password = password;
-      await appDB.put("user", user.value);
+
+      await UserModelHelper().create(user.value!.toJson());
     } catch (e) {
       debugPrint("Error: ${e.toString()}");
+      rethrow;
     }
   }
 
@@ -52,10 +77,9 @@ class UserController extends GetxController {
     try {
       // Close the Hive box
       // await appDB.close();
-      await appDB.deleteAll(["user"]);
       // Delete the Hive box directory to remove all data
       // await Hive.deleteBoxFromDisk(dbName);
-      Get.deleteAll(); // Clear all the controllers
+      Get.reloadAll(); // Clear all the controllers
     } catch (e) {
       debugPrint("Error during logout: ${e.toString()}");
     }

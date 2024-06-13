@@ -1,4 +1,5 @@
 import 'package:academia/exports/barrel.dart';
+import 'package:academia/pages/profile_page.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,14 +15,13 @@ class _HomePageState extends State<HomePage> {
     DashBoard(),
     ToolsPage(),
     CoursesPage(),
-    SettingsPage(),
+    ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {
     Get.put(SettingsController());
-    Get.put(TaskManagerController());
-    Get.put(CoursesPageController());
     Get.put(NotificationsController());
+    Get.put(CoursesController());
     return Scaffold(
       body: SafeArea(
         child: IndexedStack(index: currentIndex, children: pages),
@@ -47,9 +47,9 @@ class _HomePageState extends State<HomePage> {
             label: 'Courses',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Ionicons.grid_outline),
-            activeIcon: Icon(Ionicons.grid),
-            label: 'More',
+            icon: Icon(Ionicons.person_outline),
+            activeIcon: Icon(Ionicons.person),
+            label: 'Profile',
           ),
         ],
       ),

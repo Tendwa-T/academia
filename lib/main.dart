@@ -1,6 +1,6 @@
 import 'package:academia/exports/barrel.dart';
-import 'package:academia/services/services.dart';
 import 'package:get/get.dart';
+import 'package:academia/storage/storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,32 +23,13 @@ void main() async {
     ],
   );
 
-  /// Init the type adapters for storage
-  await Hive.initFlutter();
-  Hive.registerAdapter(UserAdapter());
-  Hive.registerAdapter(ScheduleAdapter());
-  Hive.registerAdapter(CoursesAdapter());
-  Hive.registerAdapter(TaskAdapter());
-  Hive.registerAdapter(ExamAdapter());
-  appDB = await Hive.openBox(dbName);
+  await DatabaseHelper().initDatabase();
 
-  // Initialize the various controllers
-  // once you append the controller onto the list don't inject it again
-  // since it will be placed in the context
-  ControllerService().injectMultipleControllers(
-    <GetxController>[
-      SettingsController(),
-      NotificationsController(),
-      TaskManagerController(),
-    ],
-  );
-
-  ControllerService().injectController(UserController());
   runApp(
     GetMaterialApp(
       home: const Academia(),
       theme: lightModeTheme,
-      darkTheme: darkModeTheme,
+      // darkTheme: darkModeTheme,
     ),
   );
 }
@@ -58,6 +39,14 @@ class Academia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Init the controllers here
+    final userController = Get.put(UserController());
+    Get.put(NotificationsController());
+    Get.put(NetworkController());
+    Get.put(SettingsController());
+    Get.put(TodoController());
+
+    // Prompt for permission
     AwesomeNotifications().isNotificationAllowed().then((value) {
       if ((!value) && (Platform.isAndroid || Platform.isIOS)) {
         showDialog(
@@ -89,9 +78,40 @@ class Academia extends StatelessWidget {
             });
       }
     });
-    final UserController userController = Get.find<UserController>();
-    return userController.isLoggedIn.value
-        ? const HomePage()
-        : const IntroPage();
+
+    return FutureBuilder(
+      future: userController.loadUserFromDisk(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Image.asset(
+                    "assets/icons/academia.png",
+                    height: 200,
+                  ),
+                  const SizedBox(height: 22),
+                  LoadingAnimationWidget.fourRotatingDots(
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 40,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    "Let the past die, kill it if you have to ~ The Last Jedi",
+                    style: Theme.of(context).textTheme.titleLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+        return snapshot.hasData ? const HomePage() : const IntroPage();
+      },
+    );
   }
 }
