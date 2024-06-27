@@ -7,6 +7,7 @@ export 'package:academia/constants/tools.dart';
 export 'package:academia/tools/birthday/birthday_page.dart';
 export 'package:academia/widgets/tool_card.dart';
 export 'package:awesome_notifications/awesome_notifications.dart';
+
 export 'package:academia/tools/todo/todo.dart';
 export 'package:academia/tools/tools.dart';
 
@@ -40,3 +41,12 @@ export 'package:ionicons/ionicons.dart';
 export 'package:percent_indicator/percent_indicator.dart';
 export 'package:screenshot/screenshot.dart';
 export 'package:path_provider/path_provider.dart';
+
+export 'package:academia/tools/bus_booking/bus_dashboard.dart';
+export 'package:academia/tools/bus_booking/widget_data.dart';
+export 'package:academia/tools/bus_booking/widgets/card_grid.dart';
+export 'package:academia/tools/bus_booking/widgets/currency.dart';
+export 'package:academia/tools/bus_booking/widgets/contacts.dart';
+export 'package:url_launcher/url_launcher.dart';
+export 'package:academia/tools/bus_booking/controllers/controllers.dart';
+export 'package:academia/tools/bus_booking/models/ticket.dart';
