@@ -1,32 +1,43 @@
 import 'package:academia/exports/barrel.dart';
-import 'package:academia/widgets/post_card.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class DashBoard extends StatelessWidget {
   const DashBoard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final settingsController = Get.find<SettingsController>();
-    final userController = Get.find<UserController>();
+    final StoryController storyController = Get.find<StoryController>();
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             elevation: 0,
-            leading:
-                IconButton(onPressed: () {}, icon: const Icon(Ionicons.menu)),
+            leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const LeaderBoardPage()));
+              },
+              icon: const Icon(Ionicons.trophy_outline),
+            ),
             title: const Text("Academia"),
             pinned: true,
             floating: false,
             snap: false,
-            actions: [
-              IconButton(onPressed: () {}, icon: const Icon(Ionicons.add)),
-              const ProfilePictureWidget(),
-              const SizedBox(width: 8)
-            ],
+          ),
+          Obx(
+            () => SliverVisibility(
+              visible: storyController.stories.isNotEmpty,
+              sliver: const SliverToBoxAdapter(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    HomeScreenStoryWidget(),
+                  ],
+                ),
+              ),
+            ),
           ),
           SliverToBoxAdapter(
             child: Container(
@@ -51,27 +62,6 @@ class DashBoard extends StatelessWidget {
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: Container(
-              color: Colors.red,
-              width: 80,
-              child: ListView(
-                shrinkWrap: true,
-                children: [],
-              ),
-            ),
-          ),
-          SliverFillRemaining(
-            child: ListView.builder(
-              itemCount: 20,
-              itemBuilder: (context, index) {
-                return const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4),
-                  child: PostCard(),
-                );
-              },
-            ),
-          )
         ],
       ),
     );

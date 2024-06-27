@@ -1,5 +1,5 @@
 import 'package:academia/exports/barrel.dart';
-import 'package:academia/models/user/user.dart';
+import 'package:academia/models/models.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SchoolIDCard extends StatelessWidget {
@@ -15,7 +15,7 @@ class SchoolIDCard extends StatelessWidget {
           color: Theme.of(context).colorScheme.shadow,
         ),
       ),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(12),
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width,
         maxHeight: 250,
@@ -41,7 +41,7 @@ class SchoolIDCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            user.name!.toUpperCase(),
+            "${user.firstName.toUpperCase()} ${user.lastName.toUpperCase()}",
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontFamily: GoogleFonts.jetBrainsMono().fontFamily,
                 ),
@@ -58,7 +58,7 @@ class SchoolIDCard extends StatelessWidget {
                     radius: 60,
                     child: Image.memory(
                       Uint8List.fromList(
-                        base64Decode(user.profile!
+                        base64Decode(user.profileUrl
                             .replaceFirst("data:image/gif;base64,", "")),
                       ),
                       fit: BoxFit.contain,
@@ -84,7 +84,7 @@ class SchoolIDCard extends StatelessWidget {
                                   ),
                         ),
                         Text(
-                          user.idno!,
+                          user.nationalId,
                           style:
                               Theme.of(context).textTheme.bodySmall?.copyWith(
                                     fontFamily:
@@ -106,7 +106,7 @@ class SchoolIDCard extends StatelessWidget {
                                   ),
                         ),
                         Text(
-                          user.regno!,
+                          user.admissionNumber,
                           style:
                               Theme.of(context).textTheme.bodySmall?.copyWith(
                                     fontFamily:
@@ -117,7 +117,7 @@ class SchoolIDCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      user.regno!,
+                      user.admissionNumber,
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.displayLarge?.copyWith(
                             fontWeight: FontWeight.bold,
@@ -136,7 +136,7 @@ class SchoolIDCard extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .bodySmall
-                ?.copyWith(color: Colors.red),
+                ?.copyWith(color: Colors.red, overflow: TextOverflow.fade),
           ),
         ],
       ),

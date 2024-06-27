@@ -1,26 +1,16 @@
-import 'package:academia/exports/barrel.dart';
-import 'package:academia/models/settings/settings.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:academia/models/models.dart';
 
 class SettingsController extends GetxController {
-  Rxn<SettingsModel> settings = Rxn();
+  Rx<Settings> settings = Settings.empty().obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    SettingsModelHelper().queryAll().then((value) {
-      if (value.isEmpty) {
-        SettingsModelHelper().create(SettingsModel().toJson());
-      }
-      settings.value = SettingsModel.fromMap(
-          value.isEmpty ? SettingsModel().toJson() : value[0]);
-    });
+    await SettingsHelper().init();
 
-    debugPrint("[+] Settings loaded!");
-  }
-
-  Future<bool> saveSettings() async {
-    await SettingsModelHelper().update(settings.value!.toMap());
-    return true;
+    settings.value = SettingsHelper().getSettings();
+    debugPrint("[+] Settings Loaded!");
   }
 }
