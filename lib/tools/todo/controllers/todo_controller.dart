@@ -2,7 +2,6 @@ import 'package:academia/exports/barrel.dart';
 import 'package:academia/tools/todo/models/todo_model.dart';
 import 'package:academia/tools/todo/models/todo_model_helper.dart';
 import 'package:get/get.dart';
-import '../todo.dart';
 
 class TodoController extends GetxController {
   final RxList<Todo> allTodos = <Todo>[].obs;

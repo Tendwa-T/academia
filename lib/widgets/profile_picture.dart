@@ -37,7 +37,7 @@ class ProfilePictureWidget extends StatelessWidget {
               Radius.circular(800),
             ),
             child:
-                settingsController.settings.value!.showProfilePicture ?? false
+                settingsController.settings.value.showProfilePicture ?? false
                     ? userController.user.value == null
                         ? Image.asset(
                             "assets/icons/academia.png",

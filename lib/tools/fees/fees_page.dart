@@ -133,7 +133,7 @@ class _FeesPageState extends State<FeesPage> {
                                   const SizedBox(height: 8),
                                   Row(
                                     children: [
-                                      Text(
+                                      const Text(
                                         "Debit ",
                                         // style: normal.copyWith(
                                         //     color: Colors.red, fontSize: 10),
@@ -148,7 +148,7 @@ class _FeesPageState extends State<FeesPage> {
                                         //     fontWeight: FontWeight.bold),
                                       ),
                                       const Spacer(),
-                                      Text(
+                                      const Text(
                                         "Credit ",
                                         // style: normal.copyWith(
                                         //     color: Colors.green, fontSize: 10),
@@ -163,7 +163,7 @@ class _FeesPageState extends State<FeesPage> {
                                         //     fontWeight: FontWeight.bold),
                                       ),
                                       const Spacer(),
-                                      Text(
+                                      const Text(
                                         "Balance ",
                                         // style: normal.copyWith(
                                         //     color: Colors.blue, fontSize: 10),
@@ -220,7 +220,7 @@ class _FeesPageState extends State<FeesPage> {
                   ),
                   const SizedBox(height: 12),
                   _isLoading
-                      ? Text("Loading")
+                      ? const Text("Loading")
                       : TextButton.icon(
                           onPressed: () async {
                             setState(() {

@@ -32,13 +32,12 @@ class CourseAttendanceCard extends StatelessWidget {
         circularStrokeCap: CircularStrokeCap.round,
         center: Text(
           "$percent%",
-          style: h6,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
         footer: Text(
           course,
-          style: h6.copyWith(
-            fontSize: 10,
-          ),
+          style:
+              Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 10),
           overflow: TextOverflow.ellipsis,
         ),
       ),
