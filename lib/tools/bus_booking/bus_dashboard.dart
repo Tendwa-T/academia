@@ -14,17 +14,7 @@ class BusDashboard extends StatelessWidget {
       locale: Platform.localeName,
       name: 'KSH',
     );
-    TextEditingController dateController = TextEditingController();
-    TextEditingController timeController = TextEditingController();
-    TextEditingController fromController = TextEditingController();
-    TextEditingController toController = TextEditingController();
-    List<String> destinations = [
-      "Valley Road Campus",
-      "Town",
-      "Cabanas",
-      "Syokimau",
-      "Athi River Campus",
-    ];
+
     final formattedAmount = formatCurrency.format(transportTotal);
 
     return Scaffold(
@@ -57,7 +47,7 @@ class BusDashboard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "Hi ${userController.user.value!.name!.split(' ')[0].title()}",
+                  "Hi ${userController.user.value!.firstName.title()}",
                   style: const TextStyle()
                       .copyWith(fontWeight: FontWeight.normal, fontSize: 24),
                 ),

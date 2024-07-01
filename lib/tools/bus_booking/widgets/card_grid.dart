@@ -330,7 +330,8 @@ class CardGridWidget extends StatelessWidget {
                                       .inversePrimary),
                               onPressed: () async {
                                 var reqBody = jsonEncode({
-                                  "student": userController.user.value!.regno!,
+                                  "student": userController
+                                      .user.value!.admissionNumber,
                                   "date": dateController.text.split(' ')[0],
                                   "time": timeController.text,
                                   "depature": fromController.text,

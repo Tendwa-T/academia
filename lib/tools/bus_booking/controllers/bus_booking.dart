@@ -1,6 +1,4 @@
 import 'package:academia/exports/barrel.dart';
-import 'package:academia/tools/bus_booking/my_ticket_page.dart';
-import 'package:academia/tools/bus_booking/trip_history_page.dart';
 import 'package:get/get.dart';
 
 class BusBookingController extends GetxController {
@@ -29,7 +27,7 @@ class BusBookingController extends GetxController {
 
   List<Ticket> allTickets = [
     Ticket(
-      admissionNumber: userController.user.value!.regno,
+      admissionNumber: userController.user.value!.admissionNumber,
       fromDetails: "Athi River",
       toDetails: "Nairobi",
       date: DateTime.parse('2024-06-14'),
@@ -38,7 +36,7 @@ class BusBookingController extends GetxController {
       totalPayable: 200,
     ),
     Ticket(
-      admissionNumber: userController.user.value!.regno,
+      admissionNumber: userController.user.value!.admissionNumber,
       fromDetails: "Nairobi",
       toDetails: "Athi Rivver",
       date: DateTime.parse('2024-06-14'),
