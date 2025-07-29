@@ -16,6 +16,10 @@ class InAppUpdateCubit extends Cubit<InAppUpdateState> {
   void checkForUpdate() async {
     final flavor = GetIt.instance.get<FlavorConfig>();
 
+    if (Platform.isIOS) {
+      return;
+    }
+
     if (!flavor.isProduction) {
       _logger.i("Running on ${flavor.flavorName} ignoring check for update");
       return;
