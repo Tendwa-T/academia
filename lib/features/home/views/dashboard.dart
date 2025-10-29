@@ -70,17 +70,18 @@ class _DashboardState extends State<Dashboard> {
                   return SizedBox();
                 }),
             expandedHeight: 250,
+            title: Text("Academia"),
             flexibleSpace: FlexibleSpaceBar(
               background: Image.asset(
-                "assets/images/diversity.jpg",
+                "assets/images/happy-haloween.jpg",
                 fit: BoxFit.cover,
               ),
-              title: Text("Academia").animate(delay: 250.ms).moveY(
-                    curve: Curves.easeInCubic,
-                    duration: 1000.ms,
-                    begin: -20,
-                    end: 0,
-                  ),
+              // title: Text("Academia").animate(delay: 250.ms).moveY(
+              //       curve: Curves.easeInCubic,
+              //       duration: 1000.ms,
+              //       begin: -20,
+              //       end: 0,
+              //     ),
             ),
             actions: [
               // CircleAvatar(
@@ -121,6 +122,38 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
             ],
+          ),
+
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(4),
+              child: Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                color: Colors.green[400],
+                child: Padding(
+                  padding: EdgeInsets.all(4),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 4,
+                    children: [
+                      Text(
+                        "The rollout and migration is here.",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                          "The new app packed with amazing features is already in live testing. "
+                          "Missed the first wave? No problem!"
+                          "Keep an eye on your inbox, as you'll absolutely be joining the test group before the month is out!")
+                    ],
+                  ),
+                ),
+              ),
+            ).animate().fadeIn(
+                  curve: Curves.easeIn,
+                ),
           ),
 
           SliverPadding(
